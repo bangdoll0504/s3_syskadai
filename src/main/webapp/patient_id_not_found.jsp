@@ -5,6 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>患者IDエラー</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <h2>指定された患者IDが見つかりません。</h2>

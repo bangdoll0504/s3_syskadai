@@ -5,6 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>患者ID入力</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <h2>患者ID入力フォーム</h2>
