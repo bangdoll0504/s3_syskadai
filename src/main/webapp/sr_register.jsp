@@ -1,32 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+    <title>仕入業者登録</title>
     <meta charset="UTF-8">
-    <title>仕入れ業者登録</title>
 </head>
 <body>
-    <h1>仕入れ業者登録</h1>
-    <form action="sr_confirm.jsp" method="post" accept-charset="UTF-8">
-        <label for="shiireid">仕入れID:</label>
-        <input type="text" name="shiireid" id="shiireid" required><br>
-
-        <label for="shiiremei">仕入れ名:</label>
-        <input type="text" name="shiiremei" id="shiiremei" required><br>
-
-        <label for="shiireaddress">住所:</label>
-        <input type="text" name="shiireaddress" id="shiireaddress" required><br>
-
-        <label for="shiiretel">電話番号:</label>
-        <input type="text" name="shiiretel" id="shiiretel" required><br>
-
-        <label for="shihonkin">資本金:</label>
-        <input type="number" name="shihonkin" id="shihonkin" required><br>
-
-        <label for="nouki">納期:</label>
-        <input type="number" name="nouki" id="nouki" required><br>
-
-        <input type="submit" value="確認">
+    <h2>仕入業者登録</h2>
+    <form action="sr_RegisterServlet" method="post">
+        <table>
+            <tr>
+                <td>仕入ID:</td>
+                <td><input type="text" name="id" value="${id != null ? id : ''}" /></td>
+            </tr>
+            <tr>
+                <td>仕入業者名:</td>
+                <td><input type="text" name="name" value="${name != null ? name : ''}" /></td>
+            </tr>
+            <tr>
+                <td>住所:</td>
+                <td><input type="text" name="address" value="${name != null ? name : ''}" /></td>
+            </tr>
+            <tr>
+                <td>電話番号:</td>
+                <td><input type="text" name="phone" value="${phone != null ? phone : ''}" /></td>
+            </tr>
+            <tr>
+                <td>資本金:</td>
+                <td><input type="text" name="capital" value="${capital != null ? capital : ''}" /></td>
+            </tr>
+            <tr>
+                <td>納期:</td>
+                <td><input type="text" name="delivery_date" value="${delivery_date != null ? delivery_date : ''}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="確認"/></td>
+            </tr>
+        </table>
     </form>
+    <c:if test="${not empty error}">
+        <p style="color:red;">${error}</p>
+    </c:if>
 </body>
 </html>

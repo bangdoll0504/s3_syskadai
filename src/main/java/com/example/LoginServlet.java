@@ -1,11 +1,9 @@
 package com.example;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,53 +12,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String empid = request.getParameter("empid");
-        String emppassword = request.getParameter("emppassword");
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String empid;
+    	String userId = request.getParameter("userId");
+        String password = request.getParameter("password");
+        System.out.println(userId);
+        System.out.println(password);
+        
         try {
-            Connection connection = DatabaseConnection.initializeDatabase();
-            String sql = "SELECT empid, emppassword_hash, emprole FROM employees WHERE empid = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, empid);
+            // パスワードをハッシュ化
+            String hashedPassword = PasswordUtil.hashPassword(password);
+            System.out.println(hashedPassword);
+            
+            // データベース接続
+            Connection con = DatabaseConnection.initializeDatabase();
 
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                String storedPasswordHash = result.getString("emppassword_hash");
-                int userRole = result.getInt("emprole");
+            // ユーザーIDとハッシュ化されたパスワードをデータベースで照合
+            String query = "SELECT * FROM employees WHERE empid = ? AND emppassword_hash = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, userId);
+            pst.setString(2, hashedPassword);
 
-                try {
-                    if (PasswordUtil.verifyPassword(emppassword, storedPasswordHash)) {
-                        // ログイン成功時の処理
-                        HttpSession session = request.getSession();
-                        session.setAttribute("empid", empid);
-                        session.setAttribute("userRole", userRole);
+            ResultSet rs = pst.executeQuery();
 
-                        response.sendRedirect("welcome.jsp");
-                    } else {
-                        // パスワードが一致しない場合の処理
-                        response.sendRedirect("login.jsp?error=password");
-                    }
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                    response.sendRedirect("error.jsp");
-                }
+            if (rs.next()) {
+                // ログイン成功
+            	System.out.println("success");
+            	System.out.println(rs.getInt("empRole"));
+                HttpSession session = request.getSession();
+                session.setAttribute("empid", userId);
+                session.setAttribute("userRole", rs.getInt("empRole"));
+                response.sendRedirect("welcome.jsp");
             } else {
-                // ユーザーが存在しない場合の処理
-                response.sendRedirect("login.jsp?error=user");
+                // ログイン失敗
+                response.sendRedirect("login.jsp?error=1");
             }
 
-            result.close();
-            statement.close();
-            connection.close();
-        } catch (ClassNotFoundException | SQLException e) {
+            pst.close();
+            con.close();
+
+        } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
         }
     }
 }
