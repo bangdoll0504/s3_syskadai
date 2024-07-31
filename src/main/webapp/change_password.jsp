@@ -1,30 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, javax.naming.*, javax.sql.*, javax.servlet.*, javax.servlet.http.*, javax.servlet.jsp.*" %>
+<%
+    if (session == null || session.getAttribute("empid") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    String empid = (String) session.getAttribute("empid");
+    int emprole = (Integer) session.getAttribute("userRole");
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>パスワード変更</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+
+<div class="header">
     <h1>パスワード変更</h1>
-    <form action="confirm_password.jsp" method="post">
-        <label for="userid">ユーザーID:</label>
-        <input type="text" name="userid" id="userid" required><br>
+</div>
 
-        <label for="current_password">現在のパスワード:</label>
-        <input type="password" name="current_password" id="current_password" required><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="confirm_password.jsp" method="post">
+                <div class="form-group">
+                    <label for="userid">ユーザーID:</label>
+                    <input type="text" class="form-control" id="empid" name="empid" value="<%= session.getAttribute("empid") %>" readonly>
+                </div>
+                 <div class="form-group">
+                    <label for="newPassword">新しいパスワード:</label>
+                    <input type="password" class="form-control" id="new_Password" name="new_Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">新しいパスワード（確認用）:</label>
+                    <input type="password" class="form-control" id="confirm_Password" name="confirm_Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">パスワード変更</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-        <label for="new_password">新しいパスワード:</label>
-        <input type="password" name="new_password" id="new_password" required><br>
-
-        <label for="confirm_password">新しいパスワード(確認):</label>
-        <input type="password" name="confirm_password" id="confirm_password" required><br>
-
-        <input type="submit" value="確認">
-    </form>
 </body>
 </html>

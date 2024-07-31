@@ -1,6 +1,11 @@
 package com.example;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.regex.Pattern;
+
+
 
 public class Validator {
     // 金額フォーマットの正規表現
@@ -12,6 +17,29 @@ public class Validator {
         return AMOUNT_PATTERN.matcher(amount).matches();
     }
 
+    public static String ConvAmount(String amount) {
+        String currencyString = "¥1";
+        Number number;
+        // 通貨記号を削除
+        currencyString = currencyString.replace("¥", "").trim();
+
+        // DecimalFormatを使用してカンマを解析
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator(',');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        decimalFormat.setParseBigDecimal(true);
+
+        try {
+            number = decimalFormat.parse(currencyString);
+            System.out.println("Numeric value: " + number.toString());
+    		return number.toString();
+    	} catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+
+    
     public static boolean isValidPhoneNumber(String phoneNumber) {
         return PHONE_PATTERN.matcher(phoneNumber).matches();
     }

@@ -2,7 +2,6 @@ package com.example;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import javax.servlet.ServletException;
@@ -16,11 +15,14 @@ public class th_CompleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+    	
         String tabyouinid = request.getParameter("tabyouinid");
         String tabyouinmei = request.getParameter("tabyouinmei");
         String tabyouinaddress = request.getParameter("tabyouinaddress");
         String tabyouintel = request.getParameter("tabyouintel");
-        String tabyouinshihonkin = request.getParameter("tabyouinshihonkin");
+        String tabyouinshihonkin;
+        String tabyouinshihonkin_wk = request.getParameter("tabyouinshihonkin");
         String kyukyu = request.getParameter("kyukyu");
 
         try {
@@ -29,11 +31,16 @@ public class th_CompleteServlet extends HttpServlet {
             String dbUser = "root";
             String dbPassword = "password";
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
-
-            String sql = "INSERT INTO yourtable (tabyouinid, tabyouinmei, tabyouinaddress, tabyouintel, tabyouinshihonkin, kyukyu) VALUES (?, ?, ?, ?, ?, ?)";
+            //Class.forName("com.mysql.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
+            Connection connection = DatabaseConnection.initializeDatabase();
+            
+            String sql = "INSERT INTO tabyouin (tabyouinid, tabyouinmei, tabyouinaddress, tabyouintel, tabyouinshihonkin, kyukyu) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
+            
+            System.out.println("資本金=" + tabyouinshihonkin_wk);
+            tabyouinshihonkin = Validator.ConvAmount(tabyouinshihonkin_wk);
+            
             statement.setString(1, tabyouinid);
             statement.setString(2, tabyouinmei);
             statement.setString(3, tabyouinaddress);
@@ -44,6 +51,7 @@ public class th_CompleteServlet extends HttpServlet {
             statement.executeUpdate();
             statement.close();
             connection.close();
+            System.out.println("th Complete");
 
             response.sendRedirect("th_success.jsp");
 

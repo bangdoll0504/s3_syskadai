@@ -11,28 +11,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/change_password")
 public class ChangePasswordServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // GETリクエストの場合はPOSTメソッドを呼び出す
+        doPost(request, response);
+    }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String newPassword = (String) request.getSession().getAttribute("newPassword");
+        String empid = (String) request.getSession().getAttribute("empid");
 
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("empid") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        String empid = (String) session.getAttribute("empid");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
-
-        if (newPassword == null || !newPassword.equals(confirmPassword)) {
-            response.sendRedirect("change_password.jsp?error=Passwords do not match");
+        if (newPassword == null || empid == null) {
+            response.sendRedirect("change_password.jsp?error=Invalid session or input");
             return;
         }
 
