@@ -9,17 +9,24 @@
     int emprole = (Integer) session.getAttribute("userRole");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>確認ページ</title>
     <meta charset="UTF-8">
+    <title>確認ページ</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="styles.css" rel="stylesheet">
     <style>
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         .container {
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .confirmation-details {
             margin-bottom: 20px;
@@ -32,8 +39,10 @@
 </head>
 <body>
 
+<div class="header">
+    <h1>確認ページ</h1>
+</div>
 <div class="container">
-    <h2 class="text-center">確認ページ</h2>
     <div class="confirmation-details mt-4">
         <p><strong>仕入ID:</strong> <%= request.getAttribute("id") %></p>
         <p><strong>仕入業者名:</strong> <%= request.getAttribute("name") %></p>
@@ -61,6 +70,6 @@
 <!-- Bootstrap JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

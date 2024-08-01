@@ -32,11 +32,11 @@ public class sr_CompleteServlet extends HttpServlet {
         try {
         	
         	Connection connection = DatabaseConnection.initializeDatabase();
-            String sql = "INSERT INTO shiiregyosha (shiireid, shiiremei, shiiretel, shihonkin, nouki) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO shiiregyosha (shiireid, shiiremei, shiireaddress, shiiretel, shihonkin, nouki) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, id);
                 statement.setString(2, name);
-                statement.setString(3, name);
+                statement.setString(3, addr);
                 statement.setString(4, phone);
                 statement.setString(5, capital.replaceAll(",", ""));
                 statement.setString(6, deliveryDate);

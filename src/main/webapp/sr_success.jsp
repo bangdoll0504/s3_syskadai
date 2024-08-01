@@ -18,8 +18,15 @@
     <!-- Custom CSS -->
     <link href="styles.css" rel="stylesheet">
     <style>
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         .container {
-            margin-top: 50px;
+            margin-top: 20px;
             text-align: center;
         }
         .btn-primary {
@@ -29,6 +36,9 @@
 </head>
 <body>
 
+<div class="header">
+    <h1>成功</h1>
+</div>
 <div class="container">
     <h2>登録成功</h2>
     <p>データが正常に登録されました。</p>

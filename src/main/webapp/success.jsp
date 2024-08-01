@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    if (session == null || session.getAttribute("empid") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
 
+    String empid = (String) session.getAttribute("empid");
+    int emprole = (Integer) session.getAttribute("userRole");
+%>
 <!DOCTYPE html>
 <html>
 <head>
