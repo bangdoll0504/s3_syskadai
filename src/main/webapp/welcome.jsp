@@ -36,6 +36,7 @@
                 <li class="list-group-item"><a href="medicine_register.jsp">薬剤登録</a></li>
                 <li class="list-group-item"><a href="patient_register.jsp">患者登録</a></li>
                 <li class="list-group-item"><a href="patient_list">患者一覧</a></li>
+                <li class="list-group-item"><a href="patient_list_expired">患者保険証切れ一覧</a></li>
                 <li class="list-group-item"><a href="patient_id_input.jsp">患者保険証情報変更</a></li>
                 <li class="list-group-item"><a href="medicine_list">薬剤リスト</a></li>
                 <li class="list-group-item"><a href="prescription.jsp">処置</a></li>
@@ -44,6 +45,7 @@
                 <li class="list-group-item"><a href="u_change_password.jsp">パスワード変更</a></li>
                 <li class="list-group-item"><a href="patient_register.jsp">患者登録</a></li>
                 <li class="list-group-item"><a href="patient_list">患者一覧</a></li>
+                <li class="list-group-item"><a href="patient_list_expired">患者保険証切れ一覧</a></li>
                 <li class="list-group-item"><a href="patient_id_input.jsp">患者保険証情報変更</a></li>
             <% } else if (emprole == 3) { %>
                 <li class="list-group-item"><a href="medicine_list">薬剤リスト</a></li>

@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-    if (session == null || session.getAttribute("empid") == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+if (session == null || session.getAttribute("empid") == null) {
+	response.sendRedirect("login.jsp");
+	return;
+}
 
-    String empid = (String) session.getAttribute("empid");
-    int emprole = (Integer) session.getAttribute("userRole");
+String empid = (String) session.getAttribute("empid");
+int emprole = (Integer) session.getAttribute("userRole");
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,7 +22,7 @@
 <link href="styles.css" rel="stylesheet">
 <style>
 .header {
-	background-color: #007bff;
+	background-color: #28a745;
 	color: white;
 	padding: 20px;
 	text-align: center;
@@ -32,10 +31,12 @@
 
 .container {
 	margin-top: 20px;
+	text-align: center;
 }
 
-.table-responsive {
+.btn-primary {
 	margin-top: 20px;
+	width: 200px;
 }
 </style>
 </head>
@@ -44,7 +45,7 @@
 	<div class="header">
 		<h1>処方一覧</h1>
 	</div>
-	<div class="container">
+	<div class="container table-container">
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead class="thead-dark">
@@ -69,9 +70,9 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class="container">
-		<a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
+		<div class="container">
+			<a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
+		</div>
 	</div>
 
 	<!-- Bootstrap JS, Popper.js, and jQuery -->

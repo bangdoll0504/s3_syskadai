@@ -23,7 +23,8 @@
         <h1>従業員登録</h1>
     </div>
     <div class="container">
-        <form action="e_register" method="post">
+        <!-- 送信先を変更 -->
+        <form action="e_register_confirm.jsp" method="post">
             <div class="form-group">
                 <label for="empid">従業員ID:</label>
                 <input type="text" class="form-control" name="empid" id="empid" required>
@@ -52,7 +53,7 @@
                     <option value="3">医師</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">登録</button>
+            <button type="submit" class="btn btn-primary">確認</button>
         </form>
         <div class="logout">
             <a href="login.jsp">ログインページに戻る</a>

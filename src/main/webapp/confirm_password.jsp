@@ -21,12 +21,10 @@
         return;
     }
 
-    // パスワード一致確認後、セッションに保存
     session.setAttribute("newPassword", newPassword);
-    // response.sendRedirect("change_password");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>パスワード変更確認</title>
@@ -34,6 +32,28 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="styles.css" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .hidden-value {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -47,13 +67,13 @@
             <form action="change_password" method="post">
                 <div class="form-group">
                     <label for="userid">ユーザーID:</label>
-                    <p id="userid"><%= request.getParameter("empid") %></p>
-                    <input type="hidden" name="empid" value="<%= request.getParameter("empid") %>">
+                    <p id="userid"><%= empid %></p>
+                    <input type="hidden" name="empid" value="<%= empid %>">
                 </div>
                 <div class="form-group">
                     <label for="newPassword">新しいパスワード:</label>
                     <p id="newPassword">****</p>
-                    <input type="hidden" name="new_password" value="<%= request.getParameter("new_Password") %>">
+                    <input type="hidden" name="new_password" value="<%= newPassword %>">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">変更</button>
             </form>
@@ -61,5 +81,9 @@
     </div>
 </div>
 
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

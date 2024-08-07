@@ -13,14 +13,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>患者一覧</title>
+<title>過去の保険有効期限を持つ患者一覧</title>
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="styles.css" rel="stylesheet">
 <style>
 .header {
-    background-color: #28a745; /* 緑色に統一 */
+    background-color: #28a745;
     color: white;
     padding: 20px;
     text-align: center;
@@ -45,7 +45,7 @@
 <body>
 
     <div class="header">
-        <h1>患者一覧</h1>
+        <h1>過去の保険有効期限を持つ患者一覧</h1>
     </div>
     <div class="container table-container">
         <div class="table-responsive">
@@ -80,6 +80,6 @@
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

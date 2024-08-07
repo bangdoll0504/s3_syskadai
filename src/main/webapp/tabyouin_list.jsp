@@ -18,29 +18,25 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="styles.css" rel="stylesheet">
-    <style>
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .table-container {
-            margin-top: 20px;
-        }
-        .menu-link {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .menu-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .menu-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<style>
+.header {
+	background-color: #28a745;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.container {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.btn-primary {
+	margin-top: 20px;
+	width: 200px;
+}
+</style>
 </head>
 <body>
 
@@ -75,9 +71,9 @@
             </tbody>
         </table>
     </div>
-    <div class="menu-link">
-        <a href="welcome.jsp">メニューへ</a>
-    </div>
+	<div class="container">
+		<a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
+	</div>
 </div>
 
 <!-- Bootstrap JS, Popper.js, and jQuery -->

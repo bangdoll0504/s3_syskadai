@@ -21,6 +21,26 @@
 	rel="stylesheet">
 <!-- Custom CSS -->
 <link href="styles.css" rel="stylesheet">
+<style>
+.header {
+	background-color: #28a745;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.container {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.btn-primary {
+	margin-top: 20px;
+	width: 200px;
+}
+</style>
+
 </head>
 <body>
 
@@ -68,7 +88,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<a href="welcome.jsp">メニューへ</a>
+		<a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
 	</div>
 
 </body>
