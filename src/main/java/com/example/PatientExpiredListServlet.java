@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/patient_list_expired")
+@WebServlet("/patient_expired_list")
 public class PatientExpiredListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
