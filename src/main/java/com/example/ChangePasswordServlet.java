@@ -51,10 +51,13 @@ public class ChangePasswordServlet extends HttpServlet {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, hashedPassword);
             statement.setString(2, empid);
+            logger.info(statement.toString());
+
             int rowsUpdated = statement.executeUpdate();
-            
+
             if (rowsUpdated > 0) {
                 //connection.commit();
+            	System.out.println("Pass cheng success");
                 logger.info("Password updated successfully.");
             } else {
             	logger.info("User not found.");
