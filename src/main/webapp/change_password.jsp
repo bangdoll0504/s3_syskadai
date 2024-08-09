@@ -48,7 +48,7 @@
             <form action="confirm_password.jsp" method="post">
                 <div class="form-group">
                     <label for="empid">ユーザーID:</label>
-                    <input type="text" class="form-control" id="empid" name="empid" value="<%= session.getAttribute("empid") %>" readonly>
+                    <input type="text" class="form-control" id="empid" name="empid" required>
                 </div>
                 <div class="form-group">
                     <label for="new_Password">新しいパスワード:</label>
