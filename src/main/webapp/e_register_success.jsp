@@ -38,10 +38,10 @@
 <body>
 
 <div class="header">
-    <h1>Registration Successful</h1>
+    <h1>従業員登録　完了</h1>
 </div>
 <div class="container">
-    <h2>Registration was successful!</h2>
+    <h2>従業員の登録が完了しました</h2>
     <a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
 </div>
 

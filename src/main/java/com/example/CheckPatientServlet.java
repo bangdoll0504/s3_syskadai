@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +16,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/check_patient")
 public class CheckPatientServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String patientId = request.getParameter("patientId");
+	    // セッションの取得とログイン確認
+	    HttpSession session = request.getSession(false); // 既存のセッションを取得
+	    if (session == null || session.getAttribute("empid") == null) {
+	        // セッションが存在しない、またはログインしていない場合はログインページにリダイレクト
+	        response.sendRedirect("login.jsp");
+	        return;
+	    }
+
+        String patientId = request.getParameter("patientId");
 
 		// 患者IDがデータベースに存在するかチェック
 		boolean exists = checkPatientInDatabase(patientId);

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/th_CompleteServlet")
 public class th_CompleteServlet extends HttpServlet {
@@ -17,6 +18,13 @@ public class th_CompleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
     	
+	    // セッションの取得とログイン確認
+	    HttpSession session = request.getSession(false); // 既存のセッションを取得
+	    if (session == null || session.getAttribute("empid") == null) {
+	        // セッションが存在しない、またはログインしていない場合はログインページにリダイレクト
+	        response.sendRedirect("login.jsp");
+	        return;
+	    }
         String tabyouinid = request.getParameter("tabyouinid");
         String tabyouinmei = request.getParameter("tabyouinmei");
         String tabyouinaddress = request.getParameter("tabyouinaddress");
@@ -27,9 +35,9 @@ public class th_CompleteServlet extends HttpServlet {
 
         try {
             // データベース接続情報
-            String jdbcURL = "jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8";
-            String dbUser = "root";
-            String dbPassword = "password";
+//            String jdbcURL = "jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8";
+//            String dbUser = "root";
+//            String dbPassword = "password";
 
             //Class.forName("com.mysql.jdbc.Driver");
             //Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);

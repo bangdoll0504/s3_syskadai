@@ -17,8 +17,10 @@ import javax.servlet.http.HttpSession;
 public class U_ChangePasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+        // セッションの取得とログイン確認
+        HttpSession session = request.getSession(false); // 既存のセッションを取得
         if (session == null || session.getAttribute("empid") == null) {
+            // セッションが存在しない、またはログインしていない場合はログインページにリダイレクト
             response.sendRedirect("login.jsp");
             return;
         }

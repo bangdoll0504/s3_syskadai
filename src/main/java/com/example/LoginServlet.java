@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +15,14 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //String empid;
     	String userId = request.getParameter("userId");
         String password = request.getParameter("password");
-        System.out.println(userId);
-        System.out.println(password);
+        logger.info(userId);
+        logger.info(password);
         
         try {
             // パスワードをハッシュ化
@@ -44,10 +47,13 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("empid", userId);
                 session.setAttribute("userRole", rs.getInt("empRole"));
+                session.setMaxInactiveInterval(30 * 60); // セッションタイムアウトを30分に設定
+                logger.info("Complete!!!!");                
                 response.sendRedirect("welcome.jsp");
             } else {
                 // ログイン失敗
                 response.sendRedirect("login.jsp?error=1");
+                logger.info("login.jsp?error=1");
             }
 
             pst.close();
@@ -55,6 +61,8 @@ public class LoginServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.info("Somosomo Okasii");
+            logger.info(e.toString());
         }
     }
 }
