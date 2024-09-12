@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="javax.servlet.http.*, javax.servlet.*" %>
 <%
     if (session == null || session.getAttribute("empid") == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 
-    String empid = (String) session.getAttribute("empid");
-    int emprole = (Integer) session.getAttribute("userRole");
+    String changedEmpId = (String) request.getAttribute("changedEmpId");  // 変更対象のユーザーID
 %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Password Change Success</title>
+    <title>パスワード変更完了</title>
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="styles.css" rel="stylesheet">
     <style>
         .header {
@@ -25,21 +25,22 @@
             margin-bottom: 20px;
         }
         .container {
-            text-align: center;
             margin-top: 20px;
+            text-align: center;
         }
         .btn-primary {
             margin-top: 20px;
+            width: 200px;
         }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Password Change Successful</h1>
+    <h1>パスワード変更完了</h1>
 </div>
 <div class="container">
-    <p>Your password has been changed successfully.</p>
+    <h2>ユーザーID: <%= changedEmpId %> のパスワードが正常に変更されました。</h2>
     <a href="welcome.jsp" class="btn btn-primary">メニューへ</a>
 </div>
 

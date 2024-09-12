@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,59 +14,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/change_password")
+@WebServlet("/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet {
-	private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
-	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // GETリクエストの場合はPOSTメソッドを呼び出す
-        doPost(request, response);
-    }
+    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // セッションの取得とログイン確認
         HttpSession session = request.getSession(false); // 既存のセッションを取得
         if (session == null || session.getAttribute("empid") == null) {
-            // セッションが存在しない、またはログインしていない場合はログインページにリダイレクト
             response.sendRedirect("login.jsp");
             return;
         }
 
         String newPassword = (String) request.getSession().getAttribute("newPassword");
-        String empid = (String) request.getSession().getAttribute("empid");
-        logger.info("empid="+empid);
-        logger.info("newPassword="+newPassword);
+        String c_empid = (String) request.getSession().getAttribute("c_empid");  // 変更対象のID
 
-        if (newPassword == null || empid == null) {
+        if (newPassword == null || c_empid == null) {
             response.sendRedirect("change_password.jsp?error=Invalid session or input");
             return;
         }
 
         try {
+            // パスワードのハッシュ化処理
             String hashedPassword = PasswordUtil.hashPassword(newPassword);
-            logger.info("hashedPassword="+hashedPassword);
 
+            // データベース接続とパスワード更新処理
             Connection connection = DatabaseConnection.initializeDatabase();
             String sql = "UPDATE employees SET emppassword_hash = ? WHERE empid = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, hashedPassword);
-            statement.setString(2, empid);
-            logger.info(statement.toString());
+            statement.setString(2, c_empid);
 
             int rowsUpdated = statement.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                //connection.commit();
-            	System.out.println("Pass cheng success");
-                logger.info("Password updated successfully.");
-            } else {
-            	logger.info("User not found.");
-            }
 
             statement.close();
             connection.close();
 
-            response.sendRedirect("change_password_success.jsp");
+            // パスワード変更成功後、変更対象のIDをリクエストに渡してforward
+            request.setAttribute("changedEmpId", c_empid);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("change_password_success.jsp");
+            dispatcher.forward(request, response);
+
         } catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             response.sendRedirect("change_password.jsp?error=An error occurred");
